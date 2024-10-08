@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id('property_id');
-            $table->foreignId('owner_id')->nullable()->constrained('users', 'user_id');
-            $table->foreignId('broker_id')->nullable()->constrained('users', 'user_id');
+            $table->unsignedBigInteger('owner_id')->nullable(); // Use unsignedBigInteger
+            $table->unsignedBigInteger('broker_id')->nullable(); // Use unsignedBigInteger
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('property_type')->nullable();
@@ -26,7 +26,12 @@ return new class extends Migration
             $table->integer('bathrooms')->nullable();
             $table->string('amenities')->nullable();
             $table->timestamps();
+        
+            // Add foreign key constraints after defining the columns
+            $table->foreign('owner_id')->references('user_id')->on('users')->onDelete('set null');
+            $table->foreign('broker_id')->references('user_id')->on('users')->onDelete('set null');
         });
+        
         
     }
 

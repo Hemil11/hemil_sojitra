@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->id('user_id'); // This creates an unsigned BIGINT PRIMARY KEY
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->timestamps();
         });
+        
         
     }
 
